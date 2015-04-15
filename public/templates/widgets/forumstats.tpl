@@ -1,22 +1,22 @@
 <div class="row forum-stats">
 	<div class="col-md-3 col-xs-3">
 		<div class="stats-card text-center {statsClass}">
-			<h3><span class="stats" id="onlineUsers" title="{online}">{online}</span><br /><small>Online</small></h3>
+			<h4><span class="stats" id="onlineUsers" title="{online}">{online}</span><br /><small>Online</small></h4>
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-3">
 		<div class="stats-card text-center {statsClass}">
-			<h3><span class="stats" id="registeredUsers" title="{users}">{users}</span><br /><small>[[global:users]]</small></h3>
+			<h4><span class="stats" id="registeredUsers" title="{users}">{users}</span><br /><small>[[global:users]]</small></h4>
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-3">
 		<div class="stats-card text-center {statsClass}">
-			<h3><span class="stats" id="topicsNumber" title="{topics}">{topics}</span><br /><small>[[global:topics]]</small></h3>
+			<h4><span class="stats" id="topicsNumber" title="{topics}">{topics}</span><br /><small>[[global:topics]]</small></h4>
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-3">
 		<div class="stats-card text-center {statsClass}">
-			<h3><span class="stats" id="postsNumber" title="{posts}">{posts}</span><br /><small>[[global:posts]]</small></h3>
+			<h4><span class="stats" id="postsNumber" title="{posts}">{posts}</span><br /><small>[[global:posts]]</small></h4>
 		</div>
 	</div>
 </div>

@@ -4,6 +4,8 @@ border-left: #cf246a;
 border-right: #ff942e;
 color: #fff;
 padding: 7px 5px;
+border-top-right-radius: 0px; 
+border-top-left-radius: 0px;
 }
 .panel-default > .panel-heading h3{
 font-size: 14px;
