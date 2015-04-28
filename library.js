@@ -190,7 +190,10 @@
 				online: results.onlineCount + websockets.getOnlineAnonCount(),
 				statsClass: widget.data.statsClass
 			};
-			SocketIndex.server.sockets.emit('event:widgets.requestStatsUpdate', stats);
+			
+			// Send all stats to all connected users (Real Time Stats)
+			// SocketIndex.server.sockets.emit('event:widgets.requestStatsUpdate', stats);
+			
 			app.render('widgets/forumstats', stats, function(err, html) {
 				translator.translate(html, function(translatedHTML) {
 					callback(err, translatedHTML);
@@ -526,8 +529,9 @@
 		}
 	}
 	
-
+	/*
 	SocketPlugins.updateStats = function(socket, data, callback){
+		// Real Time stats
 		// This function will handle an update stats request for the forum stats widget
 		async.parallel({
 			global: function(next) {
@@ -553,6 +557,7 @@
 			callback(null, stats);
 		});
 	};
+	*/
 
 
 	module.exports = Widget;

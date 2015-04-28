@@ -25,6 +25,8 @@
 $(document).ready(function() {
 	utils.makeNumbersHumanReadable($('.forum-stats .stats'));
 
+	/*
+	// Real Time Stats
 	// When new post or topic, you update stats
 	socket.on('event:new_post', updateStats);
 	socket.on('event:new_topic', updateStats);
@@ -60,7 +62,7 @@ $(document).ready(function() {
 			});
 		}
 	}
-	
+	*/
 
 });
 </script>
