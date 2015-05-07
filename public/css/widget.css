@@ -7,6 +7,7 @@ padding: 7px 5px;
 border-top-right-radius: 0px; 
 border-top-left-radius: 0px;
 }
+
 .panel-default > .panel-heading h3{
 font-size: 14px;
 }
@@ -112,6 +113,35 @@ margin:0px; padding:0px;
 .popular-tags > span {
 	margin-bottom: 10px;
 }
+
+
+
+/*darkmode */
+
+.panel-default > .panel-heading.dark {
+background: linear-gradient(to right, #009f9f 0, #346074 100%) repeat scroll 0 0 transparent;
+color: #fff;
+}
+#sub a.dark { 
+	color: #e2e2e2;
+}
+#sub a:hover.dark{
+	
+	color: #009f9f;
+}
+hr.dark {
+	border-top: 1px solid #565656;
+}
+.cat-icon.dark{
+	color: #c8c8c8;
+}
+
+
+/*darkmode */
+
+
+
+
 
 
 /*
