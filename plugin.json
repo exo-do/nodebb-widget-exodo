@@ -21,6 +21,9 @@
 			"hook": "filter:widget.render:activeusers", "method": "renderActiveUsersWidget"
 		},
 		{
+			"hook": "filter:widget.render:latestusers", "method": "renderLatestUsersWidget"
+		},
+		{
 			"hook": "filter:widget.render:moderators", "method": "renderModeratorsWidget"
 		},
 		{
@@ -49,6 +52,9 @@
 		},
 		{
 			"hook": "filter:widget.render:mygroups", "method": "renderMyGroups"
+		},
+		{
+			"hook": "filter:widget.render:suggestedtopics", "method": "renderSuggestedTopics"
 		},
 		{
 			"hook": "filter:widget.render:recenttagstopics", "method": "renderRecentTagsTopicsWidget"

@@ -11,7 +11,7 @@
 		topics = module.parent.require('./topics'),
 		posts = module.parent.require('./posts'),
 		groups = module.parent.require('./groups'),
-		translator = module.parent.require('../public/src/translator'),
+	translator = module.parent.require('../public/src/modules/translator'),
 		templates = module.parent.require('templates.js'),
 		websockets = module.parent.require('./socket.io'),
 		app;
@@ -34,13 +34,16 @@
 			"widgets/activeusers.tpl", "widgets/moderators.tpl",
 			"widgets/categories.tpl", "widgets/populartags.tpl",
 			"widgets/populartopics.tpl", "widgets/groups.tpl",
-			"admin/categorywidget.tpl", "admin/forumstats.tpl", "admin/html.tpl", "admin/text.tpl", "admin/recentposts.tpl",
-			"admin/recenttopics.tpl", "admin/defaultwidget.tpl", "admin/categorieswidget.tpl", "admin/populartags.tpl",
+			
+			"admin/categorywidget.tpl", "admin/forumstats.tpl", 
+			"admin/html.tpl", "admin/text.tpl", "admin/recentposts.tpl",
+			"admin/recenttopics.tpl", "admin/defaultwidget.tpl", 
+			"admin/categorieswidget.tpl", "admin/populartags.tpl",
 			"admin/populartopics.tpl", "admin/mygroups.tpl",
-			"admin/recenttagstopics.tpl",
-			"admin/recentcategorytopics.tpl",
-			"widgets/categoriesfilter.tpl",
-			"admin/categoriesfilter.tpl"
+			"admin/activeusers.tpl", "admin/latestusers.tpl",
+			
+			"admin/recenttagstopics.tpl","admin/recentcategorytopics.tpl",
+			"widgets/categoriesfilter.tpl","admin/categoriesfilter.tpl"
 		];
 
 		function loadTemplate(template, next) {
@@ -122,7 +125,7 @@
 			if (err) {
 				return callback(err);
 			}
-
+			uids = uids.slice(0, count);
 			user.getMultipleUserFields(uids, ['uid', 'username', 'userslug', 'picture'], function(err, users) {
 				if (err) {
 					return callback(err);
@@ -133,18 +136,18 @@
 				callback(err, html);
 			});
 		}
-
+		var count = Math.max(1, widget.data.numUsers || 24);
 		var html = Widget.templates['widgets/activeusers.tpl'], cidOrtid;
 		var match;
 		if (widget.data.cid) {
 			cidOrtid = widget.data.cid;
 			categories.getActiveUsers(cidOrtid, getUserData);
-		} else if (widget.area.url.indexOf('topic') === 0) {
+		} else if (widget.area.url.startsWith('topic') === 0) {
 			match = widget.area.url.match('topic/([0-9]+)');
 			cidOrtid = (match && match.length > 1) ? match[1] : 1;
 			topics.getUids(cidOrtid, getUserData);
 		} else if (widget.area.url === '') {
-			posts.getRecentPosterUids(0, 24, getUserData);
+			posts.getRecentPosterUids(0, count - 1, getUserData);
 		} else {
 			match = widget.area.url.match('[0-9]+');
 			cidOrtid = match ? match[0] : 1;
@@ -152,6 +155,16 @@
 		}
 	};
 
+	Widget.renderLatestUsersWidget = function(widget, callback) {
+			var count = Math.max(1, widget.data.numUsers || 24);
+			user.getUsersFromSet('users:joindate', widget.uid, 0, count - 1, function(err, users) {
+				if (err) {
+					return callback(err);
+				}
+				app.render('widgets/latestusers', {users: users}, callback);
+			});
+		};
+	
 	Widget.renderModeratorsWidget = function(widget, callback) {
 		var html = Widget.templates['widgets/moderators.tpl'], cid;
 
@@ -214,7 +227,7 @@
 			});
 		}
 		var cid = widget.data.cid;
-		if (!cid) {
+		if (!parseInt(cid, 10)) {
 			var match = widget.area.url.match('category/([0-9]+)');
 			cid = (match && match.length > 1) ? match[1] : null;
 		}
@@ -222,7 +235,7 @@
 		if (cid) {
 			categories.getRecentReplies(cid, widget.uid, numPosts, done);
 		} else {
-			posts.getRecentPosts(widget.uid, 0, Math.max(0, numPosts - 1), widget.data.duration || 'day', done);
+			posts.getRecentPosts(widget.uid, 0, Math.max(0, numPosts - 1), 'alltime', done);
 		}
 	};
 	
@@ -300,32 +313,62 @@
 		});
 	};
 
+	
 	Widget.renderNewGroups = function(widget, callback) {
-		groups.getGroups(0, 19, function(err, groupNames) {
-			if (err) {
-				return callback(err);
-			}
-
-			async.map(groupNames, function (groupName, next) {
-				groups.get(groupName, {}, next);
-			}, function (err, groups) {
-				if (err) {
-					return callback(err);
-				}
-
-				var numGroups = parseInt(widget.data.numGroups, 10) || 8;
-				groups = groups.filter(function(group) {
-					return group && !group.hidden;
-				}).slice(0, numGroups);
-
-				app.render('widgets/groups', {groups: groups}, function(err, html) {
+		var numGroups = parseInt(widget.data.numGroups, 10) || 8;
+		async.waterfall([
+				function(next) {
+					db.getSortedSetRevRange('groups:visible:createtime', 0, numGroups - 1, next);
+					},
+					function(groupNames, next) {
+						groups.getGroupsData(groupNames, next);
+					},
+			function(groupsData, next) {	
+				groupsData = groupsData.filter(Boolean);
+				groupsData.forEach(groups.escapeGroupData);
+				app.render('widgets/groups', {groups: groupsData}, function(err, html) {
 					translator.translate(html, function(translatedHTML) {
-						callback(err, translatedHTML);
+						next(err, translatedHTML);
 					});
 				});
-			});
-		});
+			}
+		], callback);
 	};
+
+	Widget.renderSuggestedTopics = function(widget, callback) {
+			
+			var numTopics = (widget.data.numTopics || 8) - 1;
+			var tidMatch = widget.area.url.match('topic/([0-9]+)');
+			var cidMatch = widget.area.url.match('category/([0-9]+)');
+	
+			if (tidMatch) {
+				var tid = tidMatch.length > 1 ? tidMatch[1] : 1;
+				topics.getSuggestedTopics(tid, widget.uid, 0, numTopics, function(err, topics) {
+					if (err) {
+						return callback(err);
+					}
+					app.render('widgets/suggestedtopics', {topics: topics}, callback);	
+				});
+			} else if (cidMatch) {
+				var cid = cidMatch.length > 1 ? cidMatch[1] : 1;
+				categories.getCategoryTopics({
+					cid: cid, 
+					uid: widget.uid, 
+					set: 'cid:' + cid + ':tids', 
+					reverse: false, 
+					start: 0, 
+					stop: numTopics
+				}, function(err, data) {
+					if (err) {
+						return callback(err);
+					}
+					app.render('widgets/suggestedtopics', {topics: data.topics}, callback);	
+				});
+			} else {
+				Widget.renderRecentTopicsWidget(widget, callback);
+			}	
+		};
+
 
 	Widget.defineWidgets = function(widgets, callback) {
 		widgets = widgets.concat([
@@ -351,7 +394,13 @@
 				widget: "activeusers",
 				name: "Active Users",
 				description: "List of active users in a category.",
-				content: Widget.templates['admin/categorywidget.tpl']
+				content: Widget.templates['admin/activeusers.tpl']
+			},
+			{
+				widget: "latestusers",
+				name: "Latest Users",
+				description: "List of latest registered users.",
+				content: Widget.templates['admin/latestusers.tpl']
 			},
 			{
 				widget: "moderators",
@@ -406,6 +455,12 @@
 				name:"My Groups",
 				description: "List of groups that you are in",
 				content: Widget.templates['admin/mygroups.tpl']
+			},
+			{
+			widget: "suggestedtopics",
+			name: "Suggested Topics",
+			description: "Lists of suggested topics.",
+			content: Widget.templates['admin/recenttopics.tpl']
 			},
 			{
 				widget: "newgroups",
