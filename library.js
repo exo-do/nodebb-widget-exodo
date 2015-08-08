@@ -105,7 +105,7 @@
 	};
 
 	Widget.renderRecentViewWidget = function(widget, callback) {
-		topics.getLatestTopics(widget.uid, 0, 19, 'month', function (err, data) {
+		topics.getLatestTopics(widget.uid, 0, 31, 'month', function (err, data) {
 			if(err) {
 				return callback(err);
 			}
