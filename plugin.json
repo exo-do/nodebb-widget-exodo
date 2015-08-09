@@ -64,6 +64,9 @@
 		},
 		{
 			"hook": "filter:widget.render:categoriesfilter", "method": "renderCategoriesFilter"
+		},
+		{
+			"hook": "filter:widget.render:recentcategoriestopics", "method": "renderRecentCategoriesTopicsWidget"
 		}
 	],
 	"templates": "./public/templates",
