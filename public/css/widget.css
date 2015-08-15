@@ -23,7 +23,7 @@ font-size: 14px;
 	overflow-x: hidden; */
  
 list-style: none;
-font-size: 12px;
+font-size: 10px;
 margin:0px; padding:0px;
 }
 
@@ -108,53 +108,55 @@ margin:0px; padding:0px;
 .cat {
 	width: 3%;
 	font-size: 1.5em;
-
 }
 
 .big {
     overflow: hidden !important;
     white-space:nowrap !important;
     text-overflow:ellipsis !important;
-	width: 63%;
+	width: 65%;
 	display:inline-block !important;
 	font-size: 14px !important;
+	margin-bottom: 1px;
 }
 
 .big:first-letter {
 	text-transform:uppercase;
 }
 .ava {
-	width: 14%;
+	width: 15%;
     overflow: hidden !important;
     white-space:nowrap !important;
     text-overflow:ellipsis !important;
-	display:inline-block;
-	
+	display:inline-block !important;
 }
 .user-ava{
 	height: 20px;
 	width: 20px;
 	border-radius: 100%;
-	
+	margin-bottom: 2px;
+	/*margin: 8px 12px 5px 0;
+	float: left;
+	*/
 }
 
 .time {
 	color: #2e3539;
 	font-size: 12px;
-	float:right;
-	margin-top: 3px; 
+	/* margin-top: 4px;*/ 
+	width: 10%;
+}
+
+.stats {
+	width: 2%;
 }
 
 .barra {
 	margin-top:3px !important; 
-	margin-bottom:2px !important;
+	margin-bottom:4px !important;
 }
 
-.stats {
-	width: 6%;
-	float:right;
-	margin-top: 3px;
-}
+
 
 
 
