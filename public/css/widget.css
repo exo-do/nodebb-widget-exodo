@@ -1,16 +1,16 @@
 .panel-default > .panel-heading {
-/*background: linear-gradient(to right, #cf246a 0, #ff942e 100%) repeat scroll 0 0 transparent; */
-background-color: #323a45;
-border-left: #cf246a;
-border-right: #ff942e;
-color: #fff;
-padding: 7px 5px;
-border-top-right-radius: 0px; 
-border-top-left-radius: 0px;
+	/*background: linear-gradient(to right, #cf246a 0, #ff942e 100%) repeat scroll 0 0 transparent; */
+	background-color: #323a45;
+	border-left: #cf246a;
+	border-right: #ff942e;
+	color: #fff;
+	padding: 7px 5px;
+	border-top-right-radius: 0px; 
+	border-top-left-radius: 0px;
 }
 
 .panel-default > .panel-heading h3{
-font-size: 14px;
+	font-size: 14px;
 }
 
 #rowwidget {
@@ -22,19 +22,19 @@ font-size: 14px;
 	/* overflow-y: hidden;
 	overflow-x: hidden; */
  
-list-style: none;
-font-size: 10px;
-margin:0px; padding:0px;
+	list-style: none;
+	font-size: 11px;
+	margin:0px; padding:0px;
 }
 
 #big {
-    overflow: hidden !important;
-    white-space:nowrap !important;
-    text-overflow:ellipsis !important;
+	overflow: hidden !important;
+	white-space:nowrap !important;
+	text-overflow:ellipsis !important;
 	width: 90%;
 	display:inline-block !important;
-	font-size: 12px !important;
-	margin-bottom: 1px;
+	font-size: 13px !important;
+	 margin-bottom: 1px; 
 }
 
 #big:first-letter {
@@ -55,44 +55,45 @@ margin:0px; padding:0px;
 }
 
 #recent_topics > li{
-  /* float:left; */
-  /*margin-right: 20px; */
- /* width: 130px; */
+	/* float:left; */
+	/*margin-right: 20px; */
+	/* width: 130px; */
 }
 
 #recent_topics > li:last-child hr {
-	 display:none;
+	display:none;
 }
 
 #recent_topics > li > .image{
-  display:block;
-  float:left;
-  margin-right:10px;
-  margin-top: 10px;
+	display:block;
+	float:left;
+	margin-right:10px;
+	margin-top: 10px;
 }
 
 #recent_topics > li > .image,
 #recent_topics > li > .image > img{
-  width:24px; height:24px;
+	width:24px; height:24px;
 }
 
 .cat-icon {
-    margin-top: 4px;
-    text-align: center;
-    width: 20px;
-    color: #555;
+	margin-top: 4px;
+	text-align: center;
+	width: 20px;
+	color: #555;
+	font-size: 1.5em !important;
 }
 
 .badge {
-  padding: 1px 9px 2px;
-  font-size: 12.025px;
-  font-weight: bold;
-  white-space: nowrap;
-  color: #ffffff;
-  background-color: #999999;
-  -webkit-border-radius: 9px;
-  -moz-border-radius: 9px;
-  border-radius: 9px;
+	padding: 1px 9px 2px;
+	font-size: 12.025px;
+	font-weight: bold;
+	white-space: nowrap;
+	color: #ffffff;
+	background-color: #999999;
+	-webkit-border-radius: 9px;
+	-moz-border-radius: 9px;
+	border-radius: 9px;
 }
 
 .forum-stats .stats-card {
@@ -115,13 +116,18 @@ margin:0px; padding:0px;
 	margin-bottom: 10px;
 }
 
+.color-primario{
+	color: #cf246a;
+}
 
-
+.tooltipwidget {
+	
+}
 /*darkmode */
 
 .panel-default > .panel-heading.dark {
-background: linear-gradient(to right, #009f9f 0, #346074 100%) repeat scroll 0 0 transparent;
-color: #fff;
+	background: linear-gradient(to right, #009f9f 0, #346074 100%) repeat scroll 0 0 transparent;
+	color: #fff;
 }
 #sub a.dark { 
 	color: #9d9d9d;
@@ -138,90 +144,3 @@ hr.dark {
 }
 
 
-/*darkmode */
-
-
-
-
-
-
-/*
-.recent-replies {
-	overflow-y: hidden;
-	overflow-x: hidden;
-}
-
-.recent-replies ul {
-	width: 100%;
-	height: 50px;
-	line-height: 16px;
-	margin-left: 5px;
-	padding: 5px 5px 5px 0px; 
-	list-style-type: none;
-}
-
-.recent-replies ul li {
-	clear: both;
-	line-height: 17px;
-	margin-bottom: 6px;
-}
-
-.recent-replies ul li:last-child {
-	margin-bottom: 0;
-}
-
-.recent-replies ul li .user-img {
-	display: block;
-	float: left;
-	margin-right:8px;
-	width:26px;
-	height:26px;
-}
-
-.recent-replies ul li > div {
-	max-height: 250px;
-	overflow:hidden;
-	position:relative;
-}
-
-.recent-replies ul li p {
-	display: block;
-
-	font-size: 14px;
-	word-break: break-word;
-}
-
-.recent-replies ul li span {
-	font-size: 12px;
-	overflow: hidden;
-	height: 16px;
-}
-
-.recent-replies .user-img, .active-users .user-img, .moderators .user-img {
-	margin-top: 2px;
-}
-
-
-
-.categories-list {
-	list-style: none;
-	padding-left: 0px;
-}
-
-
-
-.groups-list-item {
-	margin-bottom: 10px;
-}
-
-.groups-list-item img {
-	width: 50px;
-	margin-right: 10px;
-}
-
-.recent-replies .last-topic-title {
-	
-	font-size: 13px;
-	text-overflow: ellipsis;
-}
-*/
