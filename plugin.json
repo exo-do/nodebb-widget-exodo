@@ -73,5 +73,8 @@
 	"css": [
     	"public/css/widget.css"
     ],
+	"scripts": [
+		"client.js"
+	],
     "compatibility": "~0.5.0"
 }

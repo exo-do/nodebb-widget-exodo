@@ -21,39 +21,54 @@
 #recent_topics, #recent_topics p {
 	/* overflow-y: hidden;
 	overflow-x: hidden; */
- 
+ 	width: 100%;
 	list-style: none;
 	font-size: 11px;
 	margin:0px; padding:0px;
 }
 
-#big {
+.big {
 	overflow: hidden !important;
 	white-space:nowrap !important;
 	text-overflow:ellipsis !important;
 	width: 90%;
 	display:inline-block !important;
 	font-size: 13px !important;
-	 margin-bottom: 1px; 
+	line-height: 16px;
+	/*margin-bottom: 1px; */
 }
 
-#big:first-letter {
+.big:first-letter {
 	text-transform:uppercase;
 }
 
-#sub > p {
+.sub {
+	white-space: normal !important;
+}
+.subspan {
+	position: absolute;
+	right: 5px;
+}
+
+/*
+.sub > p {
 	
 	margin-top: 2px !important;
 }
-#sub a { 
+*/
+.sub a { 
 	color: #2e3539;
 }	
-#sub a:hover{
+.sub a:hover{
 	
 	text-decoration: none !important;
 	color: #cf246a;
 }
 
+.barra {
+	margin-top: 3px !important; 
+	margin-bottom: 3px !important;
+}
 #recent_topics > li{
 	/* float:left; */
 	/*margin-right: 20px; */
@@ -77,11 +92,11 @@
 }
 
 .cat-icon {
-	margin-top: 4px;
 	text-align: center;
 	width: 20px;
 	color: #555;
 	font-size: 1.5em !important;
+	margin-top: 6px;
 }
 
 .badge {
@@ -123,16 +138,17 @@
 .tooltipwidget {
 	
 }
+
 /*darkmode */
 
 .panel-default > .panel-heading.dark {
 	background: linear-gradient(to right, #009f9f 0, #346074 100%) repeat scroll 0 0 transparent;
 	color: #fff;
 }
-#sub a.dark { 
+.sub a.dark { 
 	color: #9d9d9d;
 }
-#sub a:hover.dark{
+.sub a:hover.dark{
 	
 	color: #009f9f;
 }
