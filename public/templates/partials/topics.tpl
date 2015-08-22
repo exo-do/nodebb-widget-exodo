@@ -1,10 +1,10 @@
 <!-- BEGIN topics -->
 <li class="clearfix">
 
-	<span> 
+		<span> 
 		<a href="{config.relative_path}/topic/{topics.slug}"><i class="cat-icon fa fa-2x {topics.category.icon} pull-left" title="{topics.category.name}"></i></a>
-	</span>
-		<span class="big"><a href="{config.relative_path}/topic/{topics.slug}">{topics.title}</a></span>
+		</span>
+		<span class="big"><a href="{config.relative_path}/topic/{topics.slug}" title="{topics.title}">{topics.title}</a></span>
 
 		<div class="sub">
 			<a href="<!-- IF topics.user.userslug -->{relative_path}/user/{topics.user.userslug}<!-- ELSE -->#<!-- ENDIF topics.user.userslug -->" >{topics.user.username}</a>
