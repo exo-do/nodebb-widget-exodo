@@ -492,6 +492,12 @@
 				name:"Recent Categories Topics",
 				description: "Muestra los topics recientes de las categorias indicadas",
 				content: Widget.templates['admin/recentcategoriestopics.tpl']
+			},
+			{
+				widget: "recentcategoriestopicsgroup",
+				name:"Recent Categories Topics Group",
+				description: "Muestra los topics recientes de las categorias indicadas solo a un grupo de usuarios",
+				content: Widget.templates['admin/recentcategoriestopics.tpl']
 			}
 		]);
 
@@ -622,6 +628,56 @@
 				});
 			});
 		});
+	};
+	
+	Widget.renderRecentCategoriesTopicsWidgetGroup = function(widget, callback) {
+		var numTopics = widget.data.numTopics || 10;
+		var cid = widget.data.cids || "";
+		cid = (cid.toString()).split(" ");
+		
+		//restringimos a un grupo el widget si esta indicado
+		var grupo = widget.data.grupo || "";
+		if( grupo != ""){
+			groups.isMember(widget.uid, grupo, function(err, bool) { 
+				if(bool){
+			
+					//var users = Widget.getUserGroup(users);
+					//console.log(users);
+					// Get X recent topics and then filter by selected categories
+					topics.getTopicsFromSet('topics:recent', widget.uid, 0, 300, function(err, data) {
+						if (err) {
+							return callback(err);
+						}
+
+						var filteredData = { topics: [] };
+
+						for(var i=0;i<data.topics.length;i++)
+						{
+							var topic = data.topics[i];
+							if(cid.indexOf(data.topics[i].cid.toString()) >= 0)
+							{	// if the category id isnt in the allowed categories, remove this topic
+								filteredData.topics.push(data.topics[i]);
+								if(filteredData.topics.length > numTopics)
+								{
+									break;
+								}
+							}
+						}
+
+						app.render('widgets/recenttopics', {topics: filteredData.topics, numTopics: numTopics, title:widget.data.title}, function(err, html) {
+							translator.translate(html, function(translatedHTML) {
+								callback(err, translatedHTML);
+							});
+						});
+					});
+	
+				}
+				else {
+					return callback(err);
+				}
+		});
+		}
+		
 	};
 	
 	/*

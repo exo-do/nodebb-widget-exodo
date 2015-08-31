@@ -2,3 +2,5 @@
 <input type="text" class="form-control" name="cids" placeholder="1 2 4 16 25 12" />
 <label>Numero de hilos a mostrar: </label>
 <input type="text" class="form-control" name="numTopics" placeholder="10" />
+<label>Restringir a grupo</label>
+<input type="text" class="form-control" name="grupo" placeholder="" />
