@@ -638,11 +638,10 @@
 		//restringimos a un grupo el widget si esta indicado
 		var grupo = widget.data.grupo || "";
 		if( grupo != ""){
-			groups.isMember(widget.uid, grupo, function(err, bool) { 
-				if(bool){
+			user.isAdministrator(widget.uid, function(err, isAdmin) { 
+				groups.isMember(widget.uid, grupo, function(err, bool) { 
+					if(bool || isAdmin){
 			
-					//var users = Widget.getUserGroup(users);
-					//console.log(users);
 					// Get X recent topics and then filter by selected categories
 					topics.getTopicsFromSet('topics:recent', widget.uid, 0, 300, function(err, data) {
 						if (err) {
@@ -671,11 +670,12 @@
 						});
 					});
 	
-				}
-				else {
+					}
+					else {
 					return callback(err);
-				}
-		});
+					}
+				});
+			});
 		}
 		
 	};
